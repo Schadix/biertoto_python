@@ -6,7 +6,7 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-cd /Users/schadem/code/github/schadix/biertoto_python/biertoto/biertoto
+cd ../biertoto/biertoto
 export PYTHONPATH=`pwd`
 OUTPUT_FOLDER="../../output"
 
