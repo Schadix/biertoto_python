@@ -8,6 +8,8 @@ fi
 
 cd /Users/schadem/code/github/schadix/biertoto_python/biertoto/biertoto
 export PYTHONPATH=`pwd`
+OUTPUT_FOLDER="../../output"
 
-scrapy crawl biertoto -a spieltag=$1 -a username=$USERNAME -a password=$PASSWORD -o ../../../output/spieltag-export-2.csv -t csv
+mkdir -p $OUTPUT_FOLDER
+scrapy crawl biertoto -a spieltag=$1 -a username=$USERNAME -a password=$PASSWORD -o $OUTPUT_FOLDER/spieltag-export-$1.csv -t csv
 

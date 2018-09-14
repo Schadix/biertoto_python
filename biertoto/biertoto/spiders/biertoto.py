@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# from __future__ import absolute_import
 import logging
 import sys
 import scrapy
@@ -104,6 +103,7 @@ class BiertotoSpider(scrapy.Spider):
                 tipp_torstenfg_guest=tipp_torstenfg_guest
             )
             games.append(biertoto_item)
+            logger.debug(biertoto_item)
             yield biertoto_item
 
         # logger.info("spiele: {}".format(games))
