@@ -17,17 +17,23 @@ class BiertotoSpider(scrapy.Spider):
     matchday = 1
 
     def start_requests(self):
-        url = 'https://www.kicktipp.de/watweissich/tippuebersicht?'
         matchday = getattr(self, 'spieltag', None)
         self.username = getattr(self, 'username', None)
         self.password = getattr(self, 'password', None)
+        self.tipprunde = getattr(self, 'tipprunde', None)
+
         if not (self.username and self.password):
             raise CloseSpider("username or password missing")
+
+        if not (self.tipprunde):
+            raise CloseSpider("no tipprunde defined")
+
+        url = 'https://www.kicktipp.de/{}/tippuebersicht?'.format(self.tipprunde)
+
 
         self.matchday = matchday if matchday is not None else 1
         url = url + '&spieltagIndex=' + matchday
         logger.debug('requesting url: {}'.format(url))
-        logger.warning('username: {}'.format(self.username))
         yield scrapy.Request(url, self.parse, dont_filter=True)
 
     def parse(self, response):
@@ -38,7 +44,6 @@ class BiertotoSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
-        logger.warning("after login")
         if response.status != 200:
             raise CloseSpider("Login failed.")
 
@@ -62,15 +67,18 @@ class BiertotoSpider(scrapy.Spider):
             home_goals = response.selector.xpath(goals_xpath.format(4 + i, 1)).extract_first()
             guest_goals = response.selector.xpath(goals_xpath.format(4 + i, 3)).extract_first()
 
+            home_goals = "" if home_goals=='-' else home_goals
+            guest_goals = "" if guest_goals=='-' else guest_goals
+
             for nr, player in enumerate(self.players):
                 player_name = response.selector.xpath(player_xpath.format(nr + 1)).extract_first()
                 player_goals_extracted = response.xpath(player_goals_xpath.format(nr + 1, 4 + i)).extract_first()
                 player_goals_home, player_goals_guest = [""] * 2
-                if player_goals_extracted:
+                if player_goals_extracted and not "-" in player_goals_extracted:
                     player_goals_home, player_goals_guest = player_goals_extracted.split(':')
                 else:
-                    logger.error('no player goals found for player: {} and game: {}-{}: '
-                                 .format(player_name, home_team, guest_team))
+                   logger.warning('no player goals found for player: {} and game: {}-{}: '
+                                 .format(player_name, home_team.encode('utf-8'), guest_team.encode('utf-8')))
 
                 if player_name == 'Uwe':
                     tipp_uwe_home = player_goals_home
