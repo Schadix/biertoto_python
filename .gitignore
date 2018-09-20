@@ -3,5 +3,6 @@ temp/
 venv/
 .idea/
 __pycache__/
-*.py[cod/
+*.py[cod]
 output/
+

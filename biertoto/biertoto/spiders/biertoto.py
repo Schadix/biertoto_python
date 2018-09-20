@@ -9,16 +9,12 @@ logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
 
+# FIXME: change to Python2
 class BiertotoSpider(scrapy.Spider):
     name = 'biertoto'
     # TODO: get rid of hard coded tipper names
     players = ['Uwe', 'Schadix', 'TorstenFG']
     matchday = 1
-
-    def __init__(self, *args, **kwargs):
-        logger_scrapy = logging.getLogger('scrapy')
-        logger_scrapy.setLevel(logging.WARNING)
-        super().__init__(*args, **kwargs)
 
     def start_requests(self):
         url = 'https://www.kicktipp.de/watweissich/tippuebersicht?'
