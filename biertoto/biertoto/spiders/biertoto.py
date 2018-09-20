@@ -38,6 +38,7 @@ class BiertotoSpider(scrapy.Spider):
         )
 
     def after_login(self, response):
+        logger.warning("after login")
         if response.status != 200:
             raise CloseSpider("Login failed.")
 
