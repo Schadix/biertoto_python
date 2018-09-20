@@ -27,6 +27,7 @@ class BiertotoSpider(scrapy.Spider):
         self.matchday = matchday if matchday is not None else 1
         url = url + '&spieltagIndex=' + matchday
         logger.debug('requesting url: {}'.format(url))
+        logger.warning('username: {}'.format(self.username))
         yield scrapy.Request(url, self.parse, dont_filter=True)
 
     def parse(self, response):
