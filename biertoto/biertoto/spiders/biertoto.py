@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import logging
-import sys
 import scrapy
 from scrapy.exceptions import CloseSpider
 from items import BiertotoItem
@@ -41,7 +40,7 @@ class BiertotoSpider(scrapy.Spider):
 
         self.matchday = matchday if matchday is not None else 1
         url = url + '&spieltagIndex=' + matchday
-        self.logger.debug('requesting url: {}'.format(url))
+        self.logger.info('requesting url: {}'.format(url))
         self.logger.debug('players: {}'.format(self.players))
 
         yield scrapy.Request(url, self.parse, dont_filter=True)

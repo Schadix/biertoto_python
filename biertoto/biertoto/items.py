@@ -9,7 +9,7 @@ import scrapy
 
 
 def serialize_tipps(value):
-    return [int(i) for sub in value for i in sub]
+    return [i for sub in value for i in sub]
 
 
 class BiertotoItem(scrapy.Item):
