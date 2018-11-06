@@ -72,7 +72,6 @@ class BiertotoSpider(scrapy.Spider):
         players_on_page = response.selector.xpath(
             '/html/body/div[1]/div[2]/div[2]/div[2]/div[4]/table/tbody/tr[*]/td[3]/div/text()').extract()
 
-        # TODO: only get the number of players and then iterate through the tr[*] fields to make sure the order is correct, not sure if extract keeps the order - potential later improvement
         for i in range(0, 9):
 
             home_team = response.selector.xpath(game_xpath.format(i + 1, 2)).extract_first()
