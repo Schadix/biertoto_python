@@ -14,7 +14,15 @@ BOT_NAME = 'biertoto'
 SPIDER_MODULES = ['biertoto.spiders']
 NEWSPIDER_MODULE = 'biertoto.spiders'
 
-FEED_EXPORT_FIELDS = ["matchday", "match_date", "home_team", "guest_team", "home_goals", "guest_goals", "tipp_uwe_home", "tipp_uwe_guest", "tipp_schadix_home", "tipp_schadix_guest", "tipp_torstenfg_home", "tipp_torstenfg_guest"]
+# ITEM_PIPELINES = {
+#    'biertoto.pipelines.BiertotoPipeline': 300,
+# }
+
+FEED_EXPORT_FIELDS = ["matchday", "match_date", "home_team", "guest_team", "home_goals", "guest_goals", "tipps"]
+
+FEED_EXPORTERS = {
+   "biertoto": "biertoto.biertoto_exporter.CsvBiertotoItemExporter"
+}
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'biertoto (+http://www.yourdomain.com)'
@@ -65,9 +73,6 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'biertoto.pipelines.BiertotoPipeline': 300,
-#}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html

@@ -12,6 +12,6 @@ export PYTHONPATH=`pwd`
 OUTPUT_FOLDER="../../output"
 
 mkdir -p $OUTPUT_FOLDER
-scrapy crawl biertoto -a spieltag=$1 -a username=<username> -a password=<password> -o $OUTPUT_FOLDER/spieltag-export-$1.csv -t csv
+scrapy crawl biertoto -a spieltag=$1 -a username=<username> -a password=<password> -a tipper=Uwe,Schadix,TorstenFG -a tipprunde=watweissich -o $OUTPUT_FOLDER/spieltag-export-$1.csv -t biertoto
 ```
 
