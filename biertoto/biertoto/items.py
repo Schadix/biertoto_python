@@ -8,7 +8,10 @@
 import scrapy
 
 
-# TODO: get rid of hardcoded tipper names and use a list of dicts instead
+def serialize_tipps(value):
+    return [int(i) for sub in value for i in sub]
+
+
 class BiertotoItem(scrapy.Item):
     matchday = scrapy.Field()
     match_date = scrapy.Field()
@@ -16,9 +19,4 @@ class BiertotoItem(scrapy.Item):
     guest_team = scrapy.Field()
     home_goals = scrapy.Field()
     guest_goals = scrapy.Field()
-    tipp_uwe_home = scrapy.Field()
-    tipp_uwe_guest = scrapy.Field()
-    tipp_schadix_home = scrapy.Field()
-    tipp_schadix_guest = scrapy.Field()
-    tipp_torstenfg_home = scrapy.Field()
-    tipp_torstenfg_guest = scrapy.Field()
+    tipps = scrapy.Field(serializer=serialize_tipps)
