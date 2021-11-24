@@ -6,5 +6,6 @@ __pycache__/
 *.py[cod]
 output/
 
+~$**
 .ipynb_checkpoints/
 .python-version
